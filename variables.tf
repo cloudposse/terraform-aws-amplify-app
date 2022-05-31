@@ -18,7 +18,7 @@ variable "platform" {
 
 variable "access_token" {
   type        = string
-  description = "The personal access token for a third-party source control system for an Amplify app. The personal access token is used to create a webhook and a read-only deploy key. The token is not stored."
+  description = "The personal access token for a third-party source control system for an Amplify app. The personal access token is used to create a webhook and a read-only deploy key. The token is not stored. Make sure that the account where the token is created has access to the repository."
   default     = null
 }
 
@@ -37,7 +37,7 @@ variable "auto_branch_creation_config" {
 variable "auto_branch_creation_patterns" {
   type        = list(string)
   description = "The automated branch creation glob patterns for an Amplify app."
-  default     = null
+  default     = []
 }
 
 variable "basic_auth_credentials" {
@@ -67,7 +67,7 @@ variable "enable_basic_auth" {
 variable "enable_branch_auto_build" {
   type        = bool
   description = "Enables auto-building of branches for the Amplify App."
-  default     = false
+  default     = true
 }
 
 variable "enable_branch_auto_deletion" {
@@ -92,4 +92,10 @@ variable "custom_rules" {
   type        = list(any)
   description = "The custom rules to apply to the Amplify App."
   default     = []
+}
+
+variable "environments" {
+  type        = map(any)
+  description = "The environments for the Amplify App."
+  default     = {}
 }
