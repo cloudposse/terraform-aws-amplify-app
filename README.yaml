@@ -1,81 +1,10 @@
-########################################################################################################################
-########################################################################################################################
-########################################################################################################################
-#         DELETE ME
-#
-# This is the README configuration for the Example module itself.
-# Delete this (up to and including the line with `---`) and fill in
-# the template below the dashes
-
-# Name of this project
-name: terraform-example-module
-
-# License of this project
-license: "APACHE2"
-
-# Copyrights
-copyrights:
-- name: "Cloud Posse, LLC"
-  url: "https://cloudposse.com"
-  year: "2021"
-
-# Canonical GitHub repo
-github_repo: cloudposse/terraform-example-module
-
-description: |-
-  This is an example project to provide all the scaffolding for a typical well-built Cloud Posse
-  Terraform module for AWS resources. It's a template repository you can
-  use when creating new repositories. This is not a useful module by itself.
-
-quickstart: |-
-  1. Use this repo as a template for a new repo.
-  2. Check out the new repo and create a `git` branch to work on.
-  3. Replace the Terraform code at the root of the repo with the code you want to publish.
-  4. Replace the code in `examples/complete` with Terraform code that will make a good automated test.
-     Please keep `context.tf` and `fixtures.us-east-2.tfvars` in place and change only `name`, leaving
-     `region`, `namespace`, `environment`, and `stage` as is. Provide outputs that will be useful for testing.
-  5. Update `test/src/examples_complete_test.go` to verify the outputs of running `terraform apply` on `examples/complete`.
-  6. Run `make github/init` to update the repo with the current Cloud Posse framework files (e.g. `CODEOWNERS`).
-  7. Run `make pr/auto-format` to format the Terraform code and generate documentation.
-  8. Commit everything to `git` and open your first PR on the new repo.
-
-references:
-- name: "Cloud Posse Documentation"
-  url: "https://docs.cloudposse.com"
-  description: "The Cloud Posse Developer Hub (documentation)"
-- name: "Terraform Standard Module Structure"
-  description: "HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories."
-  url: "https://www.terraform.io/docs/language/modules/develop/structure.html"
-- name: "Terraform Module Requirements"
-  description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
-  url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
-- name: "Terraform Version Pinning"
-  description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
-  url: "https://www.terraform.io/docs/language/settings/index.html#specifying-a-required-terraform-version"
-
-related:
-- name: "Example App"
-  url: "https://github.com/cloudposse/example-app"
-  description: "Example application for CI/CD demonstrations of Codefresh"
-
-
----
-#         DELETE ME
-#
-# The above is the README configuration for the Example module itself.
-# Delete from here to the top of file and fill in the template below
-########################################################################################################################
-########################################################################################################################
-########################################################################################################################
-
-
 #
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
 #
 
 # Name of this project
-name:
+name: terraform-aws-amplify-app
 
 # Logo for this project
 #logo: docs/logo.png
@@ -87,16 +16,16 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2021"
+    year: "2022"
 
 # Canonical GitHub repo
-github_repo:
+github_repo: cloudposse/terraform-aws-amplify-app
 
 # Badges to display
 badges:
   - name: "Latest Release"
-    image: "https://img.shields.io/github/release/cloudposse/terraform-example-module.svg"
-    url: "https://github.com/cloudposse/terraform-example-module/releases/latest"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-amplify-app.svg"
+    url: "https://github.com/cloudposse/terraform-aws-amplify-app/releases/latest"
   - name: "Slack Community"
     image: "https://slack.cloudposse.com/badge.svg"
     url: "https://slack.cloudposse.com"
@@ -112,6 +41,21 @@ related:
 
 # List any resources helpful for someone to get started. For example, link to the hashicorp documentation or AWS documentation.
 references:
+- name: "Cloud Posse Documentation"
+  url: "https://docs.cloudposse.com"
+  description: "The Cloud Posse Developer Hub (documentation)"
+- name: "Terraform Standard Module Structure"
+  description: "HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories."
+  url: "https://www.terraform.io/docs/language/modules/develop/structure.html"
+- name: "Terraform Module Requirements"
+  description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
+  url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
+- name: "Terraform Version Pinning"
+  description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
+  url: "https://www.terraform.io/docs/language/settings/index.html#specifying-a-required-terraform-version"
+- name: "Masterpoint.io"
+  description: "This repo was inspired by masterpoint's original amplify-app terraform module"
+  url: https://github.com/masterpointio/terraform-aws-amplify-app/
 
 # Short description of this project
 description: |-
@@ -140,21 +84,21 @@ usage: |-
     name      = "example"
   }
 
-  module "example" {
-    source  = "cloudposse/*****/aws"
+  module "amplify_app" {
+    source  = "cloudposse/amplify-app/aws"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
 
     example = "Hello world!"
 
-    context = module.label.this
+    context = module.label.context
   }
   ```
 
 # Example usage
 examples: |-
   Here is an example of using this module:
-  - [`examples/complete`](https://github.com/cloudposse/terraform-example-module/) - complete example of using this module
+  - [`examples/complete`](https://github.com/cloudposse/terraform-aws-amplify-app/) - complete example of using this module
 
 # How to get started quickly
 quickstart: |-
@@ -169,3 +113,5 @@ include:
 contributors:
   - name: "Erik Osterman"
     github: "osterman"
+  - name: "RB"
+    github: "nitrocode"
