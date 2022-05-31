@@ -161,7 +161,7 @@ Available targets:
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.16.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4 |
 
 ## Modules
 
