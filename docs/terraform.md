@@ -73,6 +73,7 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the main Amplify resource. |
-| <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | The amplify domain (non-custom). |
+| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the main Amplify resource |
+| <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | The amplify domain (non-custom) |
+| <a name="output_name"></a> [name](#output\_name) | The name of the main Amplify resource |
 <!-- markdownlint-restore -->

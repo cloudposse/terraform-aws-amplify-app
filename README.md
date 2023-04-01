@@ -224,8 +224,9 @@ Available targets:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the main Amplify resource. |
-| <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | The amplify domain (non-custom). |
+| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the main Amplify resource |
+| <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | The amplify domain (non-custom) |
+| <a name="output_name"></a> [name](#output\_name) | The name of the main Amplify resource |
 <!-- markdownlint-restore -->
 
 
@@ -388,14 +389,16 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 ### Contributors
 
 <!-- markdownlint-disable -->
-|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![RB][nitrocode_avatar]][nitrocode_homepage]<br/>[RB][nitrocode_homepage] |
-|---|---|
+|  [![Erik Osterman][osterman_avatar]][osterman_homepage]<br/>[Erik Osterman][osterman_homepage] | [![RB][nitrocode_avatar]][nitrocode_homepage]<br/>[RB][nitrocode_homepage] | [![Andriy Knysh][aknysh_avatar]][aknysh_homepage]<br/>[Andriy Knysh][aknysh_homepage] |
+|---|---|---|
 <!-- markdownlint-restore -->
 
   [osterman_homepage]: https://github.com/osterman
   [osterman_avatar]: https://img.cloudposse.com/150x150/https://github.com/osterman.png
   [nitrocode_homepage]: https://github.com/nitrocode
   [nitrocode_avatar]: https://img.cloudposse.com/150x150/https://github.com/nitrocode.png
+  [aknysh_homepage]: https://github.com/aknysh
+  [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
 
 [![README Footer][readme_footer_img]][readme_footer_link]
 [![Beacon][beacon]][website]
