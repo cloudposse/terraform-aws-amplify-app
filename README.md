@@ -250,6 +250,10 @@ Check out these related projects.
 
 For additional context, refer to some of these links.
 
+- [AWS Amplify Documentation](https://docs.aws.amazon.com/amplify/index.html) - Use AWS Amplify to develop and deploy cloud-powered mobile and web apps
+- [Setting up Amplify access to GitHub repositories](https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html) - Amplify uses the GitHub Apps feature to authorize Amplify read-only access to GitHub repositories. With the Amplify GitHub App, permissions are more fine-tuned, enabling you to grant Amplify access to only the repositories that you specify
+- [Getting started with existing code](https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html) - Documentation on how to continuously build, deploy, and host a modern web app using existing code
+- [Deploy a Web App on AWS Amplify](https://aws.amazon.com/getting-started/guides/deploy-webapp-amplify/) - A guide on deploying a web application with AWS Amplify
 - [Cloud Posse Documentation](https://docs.cloudposse.com) - The Cloud Posse Developer Hub (documentation)
 - [Terraform Standard Module Structure](https://www.terraform.io/docs/language/modules/develop/structure.html) - HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories.
 - [Terraform Module Requirements](https://www.terraform.io/docs/registry/modules/publish.html#requirements) - HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy.
@@ -329,7 +333,7 @@ In general, PRs are welcome. We follow the typical "fork-and-pull" Git workflow.
 
 ## Copyrights
 
-Copyright © 2022-2023 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2023-2023 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 

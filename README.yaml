@@ -16,7 +16,7 @@ license: "APACHE2"
 copyrights:
   - name: "Cloud Posse, LLC"
     url: "https://cloudposse.com"
-    year: "2022"
+    year: "2023"
 
 # Canonical GitHub repo
 github_repo: cloudposse/terraform-aws-amplify-app
@@ -41,21 +41,33 @@ related:
 
 # List any resources helpful for someone to get started. For example, link to the hashicorp documentation or AWS documentation.
 references:
-- name: "Cloud Posse Documentation"
-  url: "https://docs.cloudposse.com"
-  description: "The Cloud Posse Developer Hub (documentation)"
-- name: "Terraform Standard Module Structure"
-  description: "HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories."
-  url: "https://www.terraform.io/docs/language/modules/develop/structure.html"
-- name: "Terraform Module Requirements"
-  description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
-  url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
-- name: "Terraform Version Pinning"
-  description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
-  url: "https://www.terraform.io/docs/language/settings/index.html#specifying-a-required-terraform-version"
-- name: "Masterpoint.io"
-  description: "This repo was inspired by masterpoint's original amplify-app terraform module"
-  url: https://github.com/masterpointio/terraform-aws-amplify-app/
+  - name: "AWS Amplify Documentation"
+    url: "https://docs.aws.amazon.com/amplify/index.html"
+    description: "Use AWS Amplify to develop and deploy cloud-powered mobile and web apps"
+  - name: "Setting up Amplify access to GitHub repositories"
+    url: "https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html"
+    description: "Amplify uses the GitHub Apps feature to authorize Amplify read-only access to GitHub repositories. With the Amplify GitHub App, permissions are more fine-tuned, enabling you to grant Amplify access to only the repositories that you specify"
+  - name: "Getting started with existing code"
+    url: "https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html"
+    description: "Documentation on how to continuously build, deploy, and host a modern web app using existing code"
+  - name: "Deploy a Web App on AWS Amplify"
+    url: "https://aws.amazon.com/getting-started/guides/deploy-webapp-amplify/"
+    description: "A guide on deploying a web application with AWS Amplify"
+  - name: "Cloud Posse Documentation"
+    url: "https://docs.cloudposse.com"
+    description: "The Cloud Posse Developer Hub (documentation)"
+  - name: "Terraform Standard Module Structure"
+    description: "HashiCorp's standard module structure is a file and directory layout we recommend for reusable modules distributed in separate repositories."
+    url: "https://www.terraform.io/docs/language/modules/develop/structure.html"
+  - name: "Terraform Module Requirements"
+    description: "HashiCorp's guidance on all the requirements for publishing a module. Meeting the requirements for publishing a module is extremely easy."
+    url: "https://www.terraform.io/docs/registry/modules/publish.html#requirements"
+  - name: "Terraform Version Pinning"
+    description: "The required_version setting can be used to constrain which versions of the Terraform CLI can be used with your configuration"
+    url: "https://www.terraform.io/docs/language/settings/index.html#specifying-a-required-terraform-version"
+  - name: "Masterpoint.io"
+    description: "This repo was inspired by masterpoint's original amplify-app terraform module"
+    url: https://github.com/masterpointio/terraform-aws-amplify-app/
 
 # Short description of this project
 description: |-
