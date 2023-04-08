@@ -4,6 +4,8 @@ locals {
   iam_role_enabled = local.enabled && var.iam_service_role_arn == null
 
   iam_service_role_arn = local.iam_role_enabled ? module.role.arn : var.iam_service_role_arn
+
+  environments = { for k, v in var.environments : k => v if local.enabled }
 }
 
 data "aws_iam_policy_document" "default" {
@@ -95,7 +97,7 @@ module "role" {
 
   enabled = local.iam_role_enabled
 
-  policy_description = "Allow Amplify FullAccess"
+  policy_description = "Amplify Access"
   role_description   = "IAM role with permissions for Amplify to perform actions on AWS resources"
 
   principals = {
@@ -104,7 +106,7 @@ module "role" {
   }
 
   policy_documents = [
-    one(data.aws_iam_policy_document.default[*].json),
+    one(data.aws_iam_policy_document.default[*].json)
   ]
 
   context = module.this.context
@@ -118,22 +120,17 @@ resource "aws_amplify_app" "default" {
   repository  = var.repository
   platform    = var.platform
 
-  access_token = var.access_token
-  oauth_token  = var.oauth_token
-
+  access_token                  = var.access_token
+  oauth_token                   = var.oauth_token
   auto_branch_creation_patterns = var.auto_branch_creation_patterns
-
-  basic_auth_credentials = var.basic_auth_credentials
-
-  build_spec = var.build_spec
-
-  enable_auto_branch_creation = var.enable_auto_branch_creation
-  enable_basic_auth           = var.enable_basic_auth
-  enable_branch_auto_build    = var.enable_branch_auto_build
-  enable_branch_auto_deletion = var.enable_branch_auto_deletion
-
-  environment_variables = var.environment_variables
-  iam_service_role_arn  = local.iam_service_role_arn
+  basic_auth_credentials        = var.basic_auth_credentials
+  build_spec                    = var.build_spec
+  enable_auto_branch_creation   = var.enable_auto_branch_creation
+  enable_basic_auth             = var.enable_basic_auth
+  enable_branch_auto_build      = var.enable_branch_auto_build
+  enable_branch_auto_deletion   = var.enable_branch_auto_deletion
+  environment_variables         = var.environment_variables
+  iam_service_role_arn          = local.iam_service_role_arn
 
   dynamic "custom_rule" {
     for_each = var.custom_rules
@@ -183,7 +180,7 @@ resource "aws_amplify_backend_environment" "default" {
 }
 
 resource "aws_amplify_branch" "default" {
-  for_each = local.enabled ? var.environments : {}
+  for_each = local.environments
 
   app_id                  = one(aws_amplify_app.default[*].id)
   branch_name             = lookup(each.value, "branch_name", each.key)
@@ -202,27 +199,28 @@ resource "aws_amplify_branch" "default" {
   }
 }
 
-resource "aws_amplify_domain_association" "branches" {
-  count                  = local.enabled && var.domain_name != "" ? 1 : 0
-  app_id                 = aws_amplify_app.this.0.id
-  domain_name            = var.domain_name
+resource "aws_amplify_domain_association" "default" {
+  for_each = local.environments
+
+  app_id                 = one(aws_amplify_app.default[*].id)
+  domain_name            = lookup(each.value, "domain_name", null)
   enable_auto_sub_domain = true
   wait_for_verification  = false
 
   sub_domain {
-    branch_name = aws_amplify_branch.primary.0.branch_name
-    prefix      = var.subdomain_primary_branch
+    branch_name = lookup(each.value, "branch_name", each.key)
+    prefix      = lookup(each.value, "prefix", null)
   }
 }
 
 resource "aws_amplify_webhook" "default" {
-  for_each = local.enabled ? var.environments : {}
+  for_each = local.environments
 
   app_id      = one(aws_amplify_app.default[*].id)
   branch_name = lookup(each.value, "branch_name", each.key)
   description = format("trigger-%s", lookup(each.value, "branch_name", each.key))
 
-  # NOTE: We trigger the webhook via local-exec so as to kick off the first build on creation of Amplify App.
+  # NOTE: We trigger the webhook via local-exec so as to kick off the first build on creation of Amplify App
   provisioner "local-exec" {
     command = "curl -X POST -d {} '${aws_amplify_webhook.default[each.key].url}&operation=startbuild' -H 'Content-Type:application/json'"
   }

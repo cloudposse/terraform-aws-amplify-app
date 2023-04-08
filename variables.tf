@@ -1,18 +1,18 @@
 variable "description" {
   type        = string
-  description = "The description for an Amplify app"
+  description = "The description for the Amplify app"
   default     = null
 }
 
 variable "repository" {
   type        = string
-  description = "The repository for an Amplify app"
+  description = "The repository for the Amplify app"
   default     = null
 }
 
 variable "platform" {
   type        = string
-  description = "The platform or framework for an Amplify app"
+  description = "The platform or framework for the Amplify app"
   default     = "WEB"
 }
 
@@ -30,19 +30,19 @@ variable "oauth_token" {
 
 variable "auto_branch_creation_config" {
   type        = map(any)
-  description = "The automated branch creation configuration for an Amplify app"
+  description = "The automated branch creation configuration for the Amplify app"
   default     = null
 }
 
 variable "auto_branch_creation_patterns" {
   type        = list(string)
-  description = "The automated branch creation glob patterns for an Amplify app"
+  description = "The automated branch creation glob patterns for the Amplify app"
   default     = []
 }
 
 variable "basic_auth_credentials" {
   type        = string
-  description = "The credentials for basic authorization for an Amplify app"
+  description = "The credentials for basic authorization for the Amplify app"
   default     = null
 }
 
@@ -54,7 +54,7 @@ variable "build_spec" {
 
 variable "enable_auto_branch_creation" {
   type        = bool
-  description = "Enables automated branch creation for an Amplify app"
+  description = "Enables automated branch creation for the Amplify app"
   default     = false
 }
 
