@@ -7,6 +7,8 @@ locals {
 }
 
 data "aws_iam_policy_document" "default" {
+  count = local.enabled ? 1 : 0
+
   statement {
     sid       = "AmplifyAccess"
     effect    = "Allow"
@@ -89,12 +91,12 @@ data "aws_iam_policy_document" "default" {
 
 module "role" {
   source  = "cloudposse/iam-role/aws"
-  version = "0.16.2"
+  version = "0.17.0"
 
   enabled = local.iam_role_enabled
 
-  policy_description = "Allow S3 FullAccess"
-  role_description   = "IAM role with permissions to perform actions on S3 resources"
+  policy_description = "Allow Amplify FullAccess"
+  role_description   = "IAM role with permissions for Amplify to perform actions on AWS resources"
 
   principals = {
     # AWS = ["arn:aws:iam::123456789012:role/workers"]
@@ -102,7 +104,7 @@ module "role" {
   }
 
   policy_documents = [
-    data.aws_iam_policy_document.default.json,
+    one(data.aws_iam_policy_document.default[*].json),
   ]
 
   context = module.this.context
@@ -176,14 +178,14 @@ resource "aws_amplify_backend_environment" "default" {
     if lookup(value, "backend_enabled", false)
   } : {}
 
-  app_id           = join("", aws_amplify_app.default.*.id)
+  app_id           = one(aws_amplify_app.default[*].id)
   environment_name = lookup(each.value, "branch_name", each.key)
 }
 
 resource "aws_amplify_branch" "default" {
   for_each = local.enabled ? var.environments : {}
 
-  app_id                  = join("", aws_amplify_app.default.*.id)
+  app_id                  = one(aws_amplify_app.default[*].id)
   branch_name             = lookup(each.value, "branch_name", each.key)
   display_name            = lookup(each.value, "branch_name", each.key)
   backend_environment_arn = lookup(each.value, "backend_enabled", false) ? aws_amplify_backend_environment.default[each.key].arn : null
@@ -200,10 +202,23 @@ resource "aws_amplify_branch" "default" {
   }
 }
 
+resource "aws_amplify_domain_association" "branches" {
+  count                  = local.enabled && var.domain_name != "" ? 1 : 0
+  app_id                 = aws_amplify_app.this.0.id
+  domain_name            = var.domain_name
+  enable_auto_sub_domain = true
+  wait_for_verification  = false
+
+  sub_domain {
+    branch_name = aws_amplify_branch.primary.0.branch_name
+    prefix      = var.subdomain_primary_branch
+  }
+}
+
 resource "aws_amplify_webhook" "default" {
   for_each = local.enabled ? var.environments : {}
 
-  app_id      = join("", aws_amplify_app.default.*.id)
+  app_id      = one(aws_amplify_app.default[*].id)
   branch_name = lookup(each.value, "branch_name", each.key)
   description = format("trigger-%s", lookup(each.value, "branch_name", each.key))
 
