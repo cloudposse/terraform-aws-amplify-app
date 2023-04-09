@@ -8,110 +8,6 @@ locals {
   environments = { for k, v in var.environments : k => v if local.enabled }
 }
 
-data "aws_iam_policy_document" "default" {
-  count = local.enabled ? 1 : 0
-
-  statement {
-    sid       = "AmplifyAccess"
-    effect    = "Allow"
-    resources = ["*"]
-
-    # source: https://github.com/aws-amplify/amplify-cli/issues/4322#issuecomment-455022473
-    actions = [
-      "appsync:*",
-      "amplify:*",
-      "apigateway:POST",
-      "apigateway:DELETE",
-      "apigateway:PATCH",
-      "apigateway:PUT",
-      "cloudformation:CreateStack",
-      "cloudformation:CreateStackSet",
-      "cloudformation:DeleteStack",
-      "cloudformation:DeleteStackSet",
-      "cloudformation:DescribeStackEvents",
-      "cloudformation:DescribeStackResource",
-      "cloudformation:DescribeStackResources",
-      "cloudformation:DescribeStackSet",
-      "cloudformation:DescribeStackSetOperation",
-      "cloudformation:DescribeStacks",
-      "cloudformation:UpdateStack",
-      "cloudformation:UpdateStackSet",
-      "cloudfront:CreateCloudFrontOriginAccessIdentity",
-      "cloudfront:CreateDistribution",
-      "cloudfront:DeleteCloudFrontOriginAccessIdentity",
-      "cloudfront:DeleteDistribution",
-      "cloudfront:GetCloudFrontOriginAccessIdentity",
-      "cloudfront:GetCloudFrontOriginAccessIdentityConfig",
-      "cloudfront:GetDistribution",
-      "cloudfront:GetDistributionConfig",
-      "cloudfront:TagResource",
-      "cloudfront:UntagResource",
-      "cloudfront:UpdateCloudFrontOriginAccessIdentity",
-      "cloudfront:UpdateDistribution",
-      "cognito-identity:CreateIdentityPool",
-      "cognito-identity:DeleteIdentityPool",
-      "cognito-identity:DescribeIdentity",
-      "cognito-identity:DescribeIdentityPool",
-      "cognito-identity:SetIdentityPoolRoles",
-      "cognito-identity:UpdateIdentityPool",
-      "cognito-idp:CreateUserPool",
-      "cognito-idp:CreateUserPoolClient",
-      "cognito-idp:DeleteUserPool",
-      "cognito-idp:DeleteUserPoolClient",
-      "cognito-idp:DescribeUserPool",
-      "cognito-idp:UpdateUserPool",
-      "cognito-idp:UpdateUserPoolClient",
-      "dynamodb:CreateTable",
-      "dynamodb:DeleteItem",
-      "dynamodb:DeleteTable",
-      "dynamodb:DescribeTable",
-      "dynamodb:PutItem",
-      "dynamodb:UpdateItem",
-      "dynamodb:UpdateTable",
-      "iam:CreateRole",
-      "iam:DeleteRole",
-      "iam:DeleteRolePolicy",
-      "iam:GetRole",
-      "iam:GetUser",
-      "iam:PassRole",
-      "iam:PutRolePolicy",
-      "iam:UpdateRole",
-      "lambda:AddPermission",
-      "lambda:CreateFunction",
-      "lambda:DeleteFunction",
-      "lambda:GetFunction",
-      "lambda:GetFunctionConfiguration",
-      "lambda:InvokeAsync",
-      "lambda:InvokeFunction",
-      "lambda:RemovePermission",
-      "lambda:UpdateFunctionCode",
-      "lambda:UpdateFunctionConfiguration",
-      "s3:*"
-    ]
-  }
-}
-
-module "role" {
-  source  = "cloudposse/iam-role/aws"
-  version = "0.17.0"
-
-  enabled = local.iam_role_enabled
-
-  policy_description = "Amplify Access"
-  role_description   = "IAM role with permissions for Amplify to perform actions on AWS resources"
-
-  principals = {
-    # AWS = ["arn:aws:iam::123456789012:role/workers"]
-    Service = ["amplify.amazonaws.com"]
-  }
-
-  policy_documents = [
-    one(data.aws_iam_policy_document.default[*].json)
-  ]
-
-  context = module.this.context
-}
-
 resource "aws_amplify_app" "default" {
   count = local.enabled ? 1 : 0
 
@@ -134,13 +30,12 @@ resource "aws_amplify_app" "default" {
 
   dynamic "custom_rule" {
     for_each = var.custom_rules
-    iterator = rule
 
     content {
-      condition = lookup(rule.value, "condition", null)
-      source    = rule.value.source
-      status    = lookup(rule.value, "status", null)
-      target    = rule.value.target
+      condition = lookup(custom_rule.value, "condition", null)
+      source    = custom_rule.value.source
+      status    = lookup(custom_rule.value, "status", null)
+      target    = custom_rule.value.target
     }
   }
 
@@ -169,11 +64,7 @@ resource "aws_amplify_app" "default" {
 }
 
 resource "aws_amplify_backend_environment" "default" {
-  for_each = local.enabled ? {
-    for key, value in var.environments :
-    key => value
-    if lookup(value, "backend_enabled", false)
-  } : {}
+  for_each = { for k, v in local.environments : k => v if lookup(v, "backend_enabled", false) }
 
   app_id           = one(aws_amplify_app.default[*].id)
   environment_name = lookup(each.value, "branch_name", each.key)
@@ -200,21 +91,25 @@ resource "aws_amplify_branch" "default" {
 }
 
 resource "aws_amplify_domain_association" "default" {
-  for_each = local.environments
+  for_each = { for k, v in local.environments : k => v if lookup(v, "domain_name", null) != null && lookup(v, "domain_name", "") != "" }
 
   app_id                 = one(aws_amplify_app.default[*].id)
-  domain_name            = lookup(each.value, "domain_name", null)
-  enable_auto_sub_domain = true
-  wait_for_verification  = false
+  domain_name            = each.value.domain_name
+  enable_auto_sub_domain = lookup(each.value, "enable_auto_sub_domain", true)
+  wait_for_verification  = lookup(each.value, "wait_for_verification", false)
 
-  sub_domain {
-    branch_name = lookup(each.value, "branch_name", each.key)
-    prefix      = lookup(each.value, "prefix", null)
+  dynamic "sub_domain" {
+    for_each = lookup(each.value, "sub_domains", {})
+
+    content {
+      branch_name = sub_domain.value.branch_name
+      prefix      = sub_domain.value.prefix
+    }
   }
 }
 
 resource "aws_amplify_webhook" "default" {
-  for_each = local.environments
+  for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", null) != null && lookup(v, "webhook_enabled", false) }
 
   app_id      = one(aws_amplify_app.default[*].id)
   branch_name = lookup(each.value, "branch_name", each.key)
