@@ -1,10 +1,6 @@
 locals {
   enabled = module.this.enabled
 
-  iam_role_enabled = local.enabled && var.iam_service_role_arn == null
-
-  iam_service_role_arn = local.iam_role_enabled ? module.role.arn : var.iam_service_role_arn
-
   environments = { for k, v in var.environments : k => v if local.enabled }
 }
 

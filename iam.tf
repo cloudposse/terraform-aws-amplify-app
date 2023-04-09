@@ -1,3 +1,9 @@
+locals {
+  create_iam_role = local.enabled && (var.iam_service_role_arn == null || var.iam_service_role_arn == "")
+
+  iam_service_role_arn = local.create_iam_role ? module.role.arn : var.iam_service_role_arn
+}
+
 data "aws_iam_policy_document" "default" {
   count = local.enabled ? 1 : 0
 
@@ -85,7 +91,7 @@ module "role" {
   source  = "cloudposse/iam-role/aws"
   version = "0.17.0"
 
-  enabled = local.iam_role_enabled
+  enabled = local.create_iam_role
 
   policy_description = "Amplify Access"
   role_description   = "IAM role with permissions for Amplify to perform actions on AWS resources"
