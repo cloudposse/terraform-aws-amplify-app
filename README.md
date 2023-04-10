@@ -226,9 +226,13 @@ Available targets:
 
 | Name | Description |
 |------|-------------|
-| <a name="output_arn"></a> [arn](#output\_arn) | The ARN of the main Amplify resource |
-| <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | The amplify domain (non-custom) |
-| <a name="output_name"></a> [name](#output\_name) | The name of the main Amplify resource |
+| <a name="output_arn"></a> [arn](#output\_arn) | Amplify App ARN |
+| <a name="output_backend_environments"></a> [backend\_environments](#output\_backend\_environments) | Created backend environments |
+| <a name="output_branches"></a> [branches](#output\_branches) | Created branches |
+| <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | Amplify App domain (non-custom) |
+| <a name="output_domain_associations"></a> [domain\_associations](#output\_domain\_associations) | Created domain associations |
+| <a name="output_name"></a> [name](#output\_name) | Amplify App name |
+| <a name="output_webhooks"></a> [webhooks](#output\_webhooks) | Created webhooks |
 <!-- markdownlint-restore -->
 
 

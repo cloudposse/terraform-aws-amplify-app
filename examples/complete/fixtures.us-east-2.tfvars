@@ -22,6 +22,8 @@ enable_branch_auto_deletion = true
 
 enable_basic_auth = false
 
+access_token = "test"
+
 auto_branch_creation_patterns = [
   "*",
   "*/**"
