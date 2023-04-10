@@ -10,6 +10,18 @@ name = "amplify"
 
 repository = "https://github.com/aws-samples/aws-starter-react-for-github-actions"
 
+enable_auto_branch_creation = true
+
+auto_branch_creation_patterns = [
+  "*",
+  "*/**"
+]
+
+auto_branch_creation_config = {
+  # Enable auto build for the created branch
+  enable_auto_build = true
+}
+
 # The build spec for React
 build_spec = <<-EOT
     version: 0.1
