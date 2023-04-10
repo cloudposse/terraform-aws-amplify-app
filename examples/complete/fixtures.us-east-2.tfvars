@@ -10,7 +10,7 @@ name = "amplify"
 
 platform = "WEB"
 
-repository = "https://github.com/aws-samples/aws-starter-react-for-github-actions"
+repository = "https://github.com/cloudposse/amplify-test2"
 
 enable_auto_branch_creation = false
 
