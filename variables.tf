@@ -100,8 +100,8 @@ variable "custom_rules" {
   default     = []
 }
 
-variable "backend_environments" {
+variable "environments" {
   type        = map(any)
-  description = "The backend environments for the Amplify App"
+  description = "The configuration of the environments for the Amplify App"
   default     = {}
 }

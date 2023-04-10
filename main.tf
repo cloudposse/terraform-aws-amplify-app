@@ -1,7 +1,7 @@
 locals {
   enabled = module.this.enabled
 
-  backend_environments = { for k, v in var.backend_environments : k => v if local.enabled }
+  environments = { for k, v in var.environments : k => v if local.enabled }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_app
@@ -54,52 +54,53 @@ resource "aws_amplify_app" "default" {
   }
 
   tags = module.this.tags
-
-  lifecycle {
-    ignore_changes = [platform, custom_rule]
-  }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_backend_environment
 resource "aws_amplify_backend_environment" "default" {
-  for_each = local.backend_environments
+  for_each = { for k, v in local.environments : k => v if lookup(v, "backend_enabled", null) != null && lookup(v, "backend_enabled", false) }
 
   app_id               = one(aws_amplify_app.default[*].id)
-  environment_name     = lookup(each.value, "branch_name", each.key)
+  environment_name     = lookup(each.value, "environment_name", each.key)
   deployment_artifacts = lookup(each.value, "deployment_artifacts", null)
   stack_name           = lookup(each.value, "stack_name", null)
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_branch
 resource "aws_amplify_branch" "default" {
-  for_each = local.backend_environments
+  for_each = { for k, v in local.environments : k => v if lookup(v, "branch_name", null) != null && lookup(v, "branch_name", "") != "" }
 
-  app_id                  = one(aws_amplify_app.default[*].id)
-  branch_name             = lookup(each.value, "branch_name", each.key)
-  display_name            = lookup(each.value, "branch_name", each.key)
+  app_id                        = one(aws_amplify_app.default[*].id)
+  branch_name                   = lookup(each.value, "branch_name", each.key)
+  display_name                  = lookup(each.value, "display_name", each.key)
+  description                   = lookup(each.value, "description", null)
+  enable_auto_build             = lookup(each.value, "enable_auto_build", null)
+  enable_basic_auth             = lookup(each.value, "enable_basic_auth ", null)
+  enable_notification           = lookup(each.value, "enable_notification ", null)
+  enable_performance_mode       = lookup(each.value, "enable_performance_mode", null)
+  enable_pull_request_preview   = lookup(each.value, "enable_pull_request_preview", null)
+  environment_variables         = lookup(each.value, "environment_variables", {})
+  framework                     = lookup(each.value, "framework", null)
+  pull_request_environment_name = lookup(each.value, "pull_request_environment_name", null)
+  stage                         = lookup(each.value, "stage", null)
+  ttl                           = lookup(each.value, "ttl", null)
+
   backend_environment_arn = lookup(each.value, "backend_enabled", false) ? aws_amplify_backend_environment.default[each.key].arn : null
 
-  environment_variables = lookup(each.value, "environment_variables", {})
-
-  enable_basic_auth      = var.enable_basic_auth
-  basic_auth_credentials = null
-
   tags = module.this.tags
-
-  lifecycle {
-    ignore_changes = [framework]
-  }
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_domain_association
 resource "aws_amplify_domain_association" "default" {
-  for_each = { for k, v in local.backend_environments : k => v if lookup(v, "domain_name", null) != null && lookup(v, "domain_name", "") != "" }
+  for_each = { for k, v in local.environments : k => v if lookup(v, "domain_name", null) != null && lookup(v, "domain_name", "") != "" }
 
   app_id                 = one(aws_amplify_app.default[*].id)
-  domain_name            = each.value.domain_name
-  enable_auto_sub_domain = lookup(each.value, "enable_auto_sub_domain", true)
-  wait_for_verification  = lookup(each.value, "wait_for_verification", false)
+  domain_name            = lookup(each.value, "domain_name")
+  enable_auto_sub_domain = lookup(each.value, "enable_auto_sub_domain", null)
+  wait_for_verification  = lookup(each.value, "wait_for_verification", null)
 
   dynamic "sub_domain" {
-    for_each = lookup(each.value, "sub_domains", {})
+    for_each = lookup(each.value, "sub_domains")
 
     content {
       branch_name = sub_domain.value.branch_name
@@ -108,8 +109,9 @@ resource "aws_amplify_domain_association" "default" {
   }
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_webhook
 resource "aws_amplify_webhook" "default" {
-  for_each = { for k, v in local.backend_environments : k => v if lookup(v, "webhook_enabled", null) != null && lookup(v, "webhook_enabled", false) }
+  for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", null) != null && lookup(v, "webhook_enabled", false) }
 
   app_id      = one(aws_amplify_app.default[*].id)
   branch_name = lookup(each.value, "branch_name", each.key)

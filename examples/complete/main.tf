@@ -18,5 +18,5 @@ module "amplify_app" {
   custom_rules                  = var.custom_rules
   iam_service_role_enabled      = var.iam_service_role_enabled
   iam_service_role_arn          = var.iam_service_role_arn
-  backend_environments          = var.backend_environments
+  environments                  = var.environments
 }
