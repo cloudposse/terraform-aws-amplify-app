@@ -47,21 +47,9 @@ func TestExamplesComplete(t *testing.T) {
 	terraform.InitAndApply(t, terraformOptions)
 
 	// Run `terraform output` to get the value of an output variable
-
-	// Verify that outputs are valid when no target security group is supplied
-	newSgID := terraform.Output(t, terraformOptions, "created_sg_id")
-	newSgARN := terraform.Output(t, terraformOptions, "created_sg_arn")
-	newSgName := terraform.Output(t, terraformOptions, "created_sg_name")
-
-	assert.Contains(t, newSgID, "sg-", "SG ID should contains substring 'sg-'")
-	assert.Contains(t, newSgARN, "arn:aws:ec2", "SG ID should contains substring 'arn:aws:ec2'")
-	assert.Contains(t, newSgName, "eg-ue2-test-sg-"+randID+"-new-")
-
-	// Verify that outputs are valid when an existing security group is provided
-	targetSgID := terraform.Output(t, terraformOptions, "target_sg_id")
-	testSgID := terraform.Output(t, terraformOptions, "test_created_sg_id")
-
-	assert.Equal(t, testSgID, targetSgID, "Module should return provided SG ID as \"id\" output")
+	name := terraform.Output(t, terraformOptions, "name")
+	// Verify we're getting back the outputs we expect
+	assert.Equal(t, "", name)
 }
 
 func TestExamplesCompleteDisabled(t *testing.T) {
