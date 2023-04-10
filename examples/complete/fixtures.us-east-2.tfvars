@@ -7,3 +7,5 @@ environment = "ue2"
 stage = "test"
 
 name = "amplify"
+
+repository = "https://github.com/aws-samples/aws-starter-react-for-github-actions"
