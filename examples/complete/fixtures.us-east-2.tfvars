@@ -8,9 +8,17 @@ stage = "test"
 
 name = "amplify"
 
+platform = "WEB"
+
 repository = "https://github.com/aws-samples/aws-starter-react-for-github-actions"
 
-enable_auto_branch_creation = true
+enable_auto_branch_creation = false
+
+enable_branch_auto_build = true
+
+enable_branch_auto_deletion = true
+
+enable_basic_auth = false
 
 auto_branch_creation_patterns = [
   "*",
@@ -53,3 +61,5 @@ custom_rules = [
 environment_variables = {
   ENV = "test"
 }
+
+environments = {}
