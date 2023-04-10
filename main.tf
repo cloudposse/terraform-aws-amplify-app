@@ -1,9 +1,10 @@
 locals {
   enabled = module.this.enabled
 
-  environments = { for k, v in var.environments : k => v if local.enabled }
+  backend_environments = { for k, v in var.backend_environments : k => v if local.enabled }
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_app
 resource "aws_amplify_app" "default" {
   count = local.enabled ? 1 : 0
 
@@ -59,15 +60,18 @@ resource "aws_amplify_app" "default" {
   }
 }
 
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_backend_environment
 resource "aws_amplify_backend_environment" "default" {
-  for_each = { for k, v in local.environments : k => v if lookup(v, "backend_enabled", false) }
+  for_each = local.backend_environments
 
-  app_id           = one(aws_amplify_app.default[*].id)
-  environment_name = lookup(each.value, "branch_name", each.key)
+  app_id               = one(aws_amplify_app.default[*].id)
+  environment_name     = lookup(each.value, "branch_name", each.key)
+  deployment_artifacts = lookup(each.value, "deployment_artifacts", null)
+  stack_name           = lookup(each.value, "stack_name", null)
 }
 
 resource "aws_amplify_branch" "default" {
-  for_each = local.environments
+  for_each = local.backend_environments
 
   app_id                  = one(aws_amplify_app.default[*].id)
   branch_name             = lookup(each.value, "branch_name", each.key)
@@ -87,7 +91,7 @@ resource "aws_amplify_branch" "default" {
 }
 
 resource "aws_amplify_domain_association" "default" {
-  for_each = { for k, v in local.environments : k => v if lookup(v, "domain_name", null) != null && lookup(v, "domain_name", "") != "" }
+  for_each = { for k, v in local.backend_environments : k => v if lookup(v, "domain_name", null) != null && lookup(v, "domain_name", "") != "" }
 
   app_id                 = one(aws_amplify_app.default[*].id)
   domain_name            = each.value.domain_name
@@ -105,7 +109,7 @@ resource "aws_amplify_domain_association" "default" {
 }
 
 resource "aws_amplify_webhook" "default" {
-  for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", null) != null && lookup(v, "webhook_enabled", false) }
+  for_each = { for k, v in local.backend_environments : k => v if lookup(v, "webhook_enabled", null) != null && lookup(v, "webhook_enabled", false) }
 
   app_id      = one(aws_amplify_app.default[*].id)
   branch_name = lookup(each.value, "branch_name", each.key)

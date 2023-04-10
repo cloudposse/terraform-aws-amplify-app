@@ -12,6 +12,8 @@ platform = "WEB"
 
 repository = "https://github.com/cloudposse/amplify-test2"
 
+iam_service_role_enabled = false
+
 enable_auto_branch_creation = false
 
 enable_branch_auto_build = true
@@ -62,4 +64,4 @@ environment_variables = {
   ENV = "test"
 }
 
-environments = {}
+backend_environments = {}

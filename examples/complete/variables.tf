@@ -89,8 +89,14 @@ variable "environment_variables" {
 
 variable "iam_service_role_arn" {
   type        = string
-  description = "The AWS Identity and Access Management (IAM) service role for an Amplify app"
+  description = "The AWS Identity and Access Management (IAM) service role for an Amplify app. If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`"
   default     = null
+}
+
+variable "iam_service_role_enabled" {
+  type        = bool
+  description = "Flag to create the IAM service role for an Amplify app"
+  default     = false
 }
 
 variable "custom_rules" {
@@ -99,8 +105,8 @@ variable "custom_rules" {
   default     = []
 }
 
-variable "environments" {
+variable "backend_environments" {
   type        = map(any)
-  description = "The environments for the Amplify App"
+  description = "The backend environments for the Amplify App"
   default     = {}
 }

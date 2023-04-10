@@ -1,11 +1,11 @@
 locals {
-  create_iam_role = local.enabled && (var.iam_service_role_arn == null || var.iam_service_role_arn == "")
+  create_iam_role = local.enabled && var.iam_service_role_enabled && (var.iam_service_role_arn == null || var.iam_service_role_arn == "")
 
   iam_service_role_arn = local.create_iam_role ? module.role.arn : var.iam_service_role_arn
 }
 
 data "aws_iam_policy_document" "default" {
-  count = local.enabled ? 1 : 0
+  count = local.create_iam_role ? 1 : 0
 
   statement {
     sid       = "AmplifyAccess"
@@ -93,7 +93,7 @@ module "role" {
 
   enabled = local.create_iam_role
 
-  policy_description = "Amplify Access"
+  policy_description = "IAM policy for Amplify to perform actions on AWS resources"
   role_description   = "IAM role with permissions for Amplify to perform actions on AWS resources"
 
   principals = {
