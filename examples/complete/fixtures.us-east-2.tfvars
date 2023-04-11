@@ -66,4 +66,20 @@ environment_variables = {
   ENV = "test"
 }
 
-environments = {}
+environments = {
+  prod = {
+    branch_name                 = "main"
+    backend_enabled             = false
+    enable_performance_mode     = true
+    enable_pull_request_preview = false
+    framework                   = "React"
+    stage                       = "PRODUCTION"
+  }
+  dev = {
+    branch_name                 = "dev"
+    backend_enabled             = false
+    enable_pull_request_preview = true
+    framework                   = "React"
+    stage                       = "DEVELOPMENT"
+  }
+}
