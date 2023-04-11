@@ -19,7 +19,7 @@ output "backend_environments" {
 }
 
 output "branch_names" {
-  description = "The names of the created Aplify branches"
+  description = "The names of the created Amplify branches"
   value       = module.amplify_app.branch_names
 }
 
