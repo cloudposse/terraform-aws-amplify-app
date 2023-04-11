@@ -49,7 +49,7 @@ func TestExamplesComplete(t *testing.T) {
 	// Run `terraform output` to get the value of an output variable
 	name := terraform.Output(t, terraformOptions, "name")
 	// Verify we're getting back the outputs we expect
-	assert.Equal(t, "", name)
+	assert.Equal(t, "eg-ue2-test-amplify", name)
 }
 
 func TestExamplesCompleteDisabled(t *testing.T) {

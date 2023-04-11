@@ -19,4 +19,6 @@ module "amplify_app" {
   iam_service_role_enabled      = var.iam_service_role_enabled
   iam_service_role_arn          = var.iam_service_role_arn
   environments                  = var.environments
+
+  context = module.this.context
 }
