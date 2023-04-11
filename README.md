@@ -28,8 +28,7 @@
 
 -->
 
-Short
-description
+Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations, and webhooks. 
 
 ---
 
@@ -59,10 +58,6 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 
 
-
-## Introduction
-
-This is an introduction.
 
 
 ## Security & Compliance [<img src="https://cloudposse.com/wp-content/uploads/2020/11/bridgecrew.svg" width="250" align="right" />](https://bridgecrew.io/)
@@ -104,30 +99,87 @@ For automated tests of the complete example using [bats](https://github.com/bats
 (which tests and deploys the example on AWS), see [test](test).
 
 ```hcl
-# Create a standard label resource. See [null-label](https://github.com/cloudposse/terraform-null-label/#terraform-null-label--)
-module "label" {
-  source  = "cloudposse/label/null"
-  # Cloud Posse recommends pinning every module to a specific version, though usually you want to use the current one
-  # version = "x.x.x"
-
-  namespace = "eg"
-  name      = "example"
-}
-
 module "amplify_app" {
   source  = "cloudposse/amplify-app/aws"
   # Cloud Posse recommends pinning every module to a specific version
   # version = "x.x.x"
 
-  example = "Hello world!"
+  description  = "Test Amplify App"
+  repository   = "https://github.com/cloudposse/amplify-test2"
+  platform     = "WEB"
+  access_token = "<change me>"
+
+  iam_service_role_enabled    = false
+  enable_auto_branch_creation = false
+  enable_branch_auto_build    = true
+  enable_branch_auto_deletion = true
+  enable_basic_auth           = false
+
+  auto_branch_creation_patterns = [
+    "*",
+    "*/**"
+  ]
+
+  auto_branch_creation_config = {
+    # Enable auto build for the created branch
+    enable_auto_build = true
+  }
+
+  # The build spec for React
+  build_spec = <<-EOT
+    version: 0.1
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - yarn install
+        build:
+          commands:
+            - yarn run build
+      artifacts:
+        baseDirectory: build
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+  EOT
+
+  custom_rules = [
+    {
+      source = "/<*>"
+      status = "404"
+      target = "/index.html"
+    }
+  ]
+
+  environment_variables = {
+    ENV = "test"
+  }
+    
+  environments = {
+    prod = {
+      branch_name                 = "main"
+      backend_enabled             = false
+      enable_performance_mode     = true
+      enable_pull_request_preview = false
+      framework                   = "React"
+      stage                       = "PRODUCTION"
+    }
+    dev = {
+      branch_name                 = "dev"
+      backend_enabled             = false
+      enable_pull_request_preview = true
+      framework                   = "React"
+      stage                       = "DEVELOPMENT"
+    }
+  }
 
   context = module.label.context
 }
 ```
 
-## Quick Start
 
-Here's how to get started...
 
 
 ## Examples
