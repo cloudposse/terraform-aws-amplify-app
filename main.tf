@@ -19,11 +19,12 @@ resource "aws_amplify_app" "default" {
   basic_auth_credentials        = var.basic_auth_credentials
   build_spec                    = var.build_spec
   enable_auto_branch_creation   = var.enable_auto_branch_creation
+  enable_branch_auto_deletion   = var.enable_branch_auto_deletion
   enable_basic_auth             = var.enable_basic_auth
   enable_branch_auto_build      = var.enable_branch_auto_build
-  enable_branch_auto_deletion   = var.enable_branch_auto_deletion
   environment_variables         = var.environment_variables
-  iam_service_role_arn          = local.iam_service_role_arn
+
+  iam_service_role_arn = local.iam_service_role_arn
 
   dynamic "custom_rule" {
     for_each = var.custom_rules
@@ -68,9 +69,12 @@ resource "aws_amplify_backend_environment" "default" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_branch
 resource "aws_amplify_branch" "default" {
-  for_each = { for k, v in local.environments : k => v if lookup(v, "branch_name", null) != null && lookup(v, "branch_name", "") != "" }
+  for_each = local.environments
 
-  app_id                        = one(aws_amplify_app.default[*].id)
+  app_id = one(aws_amplify_app.default[*].id)
+
+  backend_environment_arn = lookup(each.value, "backend_enabled", false) ? aws_amplify_backend_environment.default[each.key].arn : null
+
   branch_name                   = lookup(each.value, "branch_name", each.key)
   display_name                  = lookup(each.value, "display_name", each.key)
   description                   = lookup(each.value, "description", null)
@@ -85,8 +89,6 @@ resource "aws_amplify_branch" "default" {
   stage                         = lookup(each.value, "stage", null)
   ttl                           = lookup(each.value, "ttl", null)
 
-  backend_environment_arn = lookup(each.value, "backend_enabled", false) ? aws_amplify_backend_environment.default[each.key].arn : null
-
   tags = module.this.tags
 }
 
@@ -100,7 +102,7 @@ resource "aws_amplify_domain_association" "default" {
   wait_for_verification  = lookup(each.value, "wait_for_verification", null)
 
   dynamic "sub_domain" {
-    for_each = lookup(each.value, "sub_domains")
+    for_each = lookup(each.value, "sub_domain")
 
     content {
       branch_name = sub_domain.value.branch_name
