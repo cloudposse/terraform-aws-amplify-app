@@ -36,7 +36,7 @@ auto_branch_creation_config = {
 
 # The build spec for React
 build_spec = <<-EOT
-    version: 0.1
+    version: 1
     frontend:
       phases:
         preBuild:
