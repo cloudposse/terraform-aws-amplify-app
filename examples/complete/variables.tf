@@ -147,7 +147,7 @@ variable "environments" {
       branch_name = string
       prefix      = string
     })))
-    webhook_enabled = optional(bool)
+    webhook_enabled = optional(bool, false)
   }))
   description = "The configuration of the environments for the Amplify App"
   default     = {}

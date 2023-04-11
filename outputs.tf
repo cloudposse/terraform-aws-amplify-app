@@ -18,9 +18,9 @@ output "backend_environments" {
   value       = aws_amplify_backend_environment.default
 }
 
-output "branches" {
-  description = "Created branches"
-  value       = aws_amplify_branch.default
+output "branch_names" {
+  description = "The names of the created Aplify branches"
+  value       = values(aws_amplify_branch.default)[*].branch_name
 }
 
 output "domain_associations" {

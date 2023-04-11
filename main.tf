@@ -113,7 +113,7 @@ resource "aws_amplify_domain_association" "default" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_webhook
 resource "aws_amplify_webhook" "default" {
-  for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", null) != null && lookup(v, "webhook_enabled", false) }
+  for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", false) }
 
   app_id      = one(aws_amplify_app.default[*].id)
   branch_name = lookup(each.value, "branch_name", each.key)
