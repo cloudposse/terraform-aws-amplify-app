@@ -1,6 +1,6 @@
 module github.com/cloudposse/terraform-aws-amplify-app
 
-go 1.20
+go 1.19
 
 require (
 	github.com/gruntwork-io/terratest v0.41.16
