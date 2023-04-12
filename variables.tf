@@ -82,7 +82,10 @@ variable "enable_auto_branch_creation" {
 
 variable "enable_basic_auth" {
   type        = bool
-  description = "Enables basic authorization for an Amplify app. This will apply to all branches that are part of this app"
+  description = <<-EOT
+    Enables basic authorization for an Amplify app. 
+    This will apply to all branches that are part of this app.
+    EOT
   default     = false
 }
 
@@ -105,9 +108,12 @@ variable "environment_variables" {
 }
 
 variable "iam_service_role_arn" {
-  type        = string
-  description = "The AWS Identity and Access Management (IAM) service role for an Amplify app. If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`"
-  default     = null
+  type        = list(string)
+  description = <<-EOT
+    The AWS Identity and Access Management (IAM) service role for an Amplify app. 
+    If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`.
+    EOT
+  default     = []
 }
 
 variable "iam_service_role_enabled" {
