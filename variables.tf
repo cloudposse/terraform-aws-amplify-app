@@ -67,7 +67,10 @@ variable "basic_auth_credentials" {
 
 variable "build_spec" {
   type        = string
-  description = "The [build specification](https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html) (build spec) for an Amplify app. If not provided then it will use the `amplify.yml` at the root of your project / branch"
+  description = <<-EOT
+    The [build specification](https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html) (build spec) for an Amplify app.
+    If not provided then it will use the `amplify.yml` at the root of your project / branch.
+    EOT
   default     = null
 }
 
