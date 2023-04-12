@@ -34,6 +34,7 @@ variable "oauth_token" {
     The OAuth token is not stored.
     EOT
   default     = null
+  sensitive   = true
 }
 
 variable "auto_branch_creation_config" {
