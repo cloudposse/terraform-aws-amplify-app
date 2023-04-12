@@ -1,7 +1,7 @@
 locals {
-  create_iam_role = local.enabled && var.iam_service_role_enabled && (var.iam_service_role_arn == null || var.iam_service_role_arn == "")
+  create_iam_role = local.enabled && var.iam_service_role_enabled && (var.iam_service_role_arn == null || length(var.iam_service_role_arn) == 0)
 
-  iam_service_role_arn = try(local.create_iam_role ? module.role.arn : var.iam_service_role_arn, null)
+  iam_service_role_arn = try(local.create_iam_role ? module.role.arn : var.iam_service_role_arn[0], null)
 }
 
 data "aws_iam_policy_document" "default" {

@@ -23,13 +23,21 @@ variable "platform" {
 
 variable "access_token" {
   type        = string
-  description = "The personal access token for a third-party source control system for an Amplify app. The personal access token is used to create a webhook and a read-only deploy key. The token is not stored. Make sure that the account where the token is created has access to the repository"
+  description = <<-EOT
+    The personal access token for a third-party source control system for an Amplify app.
+    The personal access token is used to create a webhook and a read-only deploy key. The token is not stored.
+    Make sure that the account where the token is created has access to the repository.
+    EOT
   default     = null
 }
 
 variable "oauth_token" {
   type        = string
-  description = "The OAuth token for a third-party source control system for an Amplify app. The OAuth token is used to create a webhook and a read-only deploy key. The OAuth token is not stored"
+  description = <<-EOT
+    The OAuth token for a third-party source control system for an Amplify app.
+    The OAuth token is used to create a webhook and a read-only deploy key.
+    The OAuth token is not stored.
+    EOT
   default     = null
 }
 
@@ -64,7 +72,10 @@ variable "basic_auth_credentials" {
 
 variable "build_spec" {
   type        = string
-  description = "The [build specification](https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html) (build spec) for an Amplify app. If not provided then it will use the `amplify.yml` at the root of your project / branch"
+  description = <<-EOT
+    The [build specification](https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html) (build spec) for an Amplify app.
+    If not provided then it will use the `amplify.yml` at the root of your project / branch.
+    EOT
   default     = null
 }
 
@@ -76,7 +87,10 @@ variable "enable_auto_branch_creation" {
 
 variable "enable_basic_auth" {
   type        = bool
-  description = "Enables basic authorization for an Amplify app. This will apply to all branches that are part of this app"
+  description = <<-EOT
+    Enables basic authorization for an Amplify app.
+    This will apply to all branches that are part of this app.
+    EOT
   default     = false
 }
 
@@ -99,9 +113,12 @@ variable "environment_variables" {
 }
 
 variable "iam_service_role_arn" {
-  type        = string
-  description = "The AWS Identity and Access Management (IAM) service role for an Amplify app. If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`"
-  default     = null
+  type        = list(string)
+  description = <<-EOT
+    The AWS Identity and Access Management (IAM) service role for an Amplify app.
+    If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`.
+    EOT
+  default     = []
 }
 
 variable "iam_service_role_enabled" {
