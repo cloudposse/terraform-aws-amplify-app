@@ -18,7 +18,11 @@ variable "platform" {
 
 variable "access_token" {
   type        = string
-  description = "The personal access token for a third-party source control system for an Amplify app. The personal access token is used to create a webhook and a read-only deploy key. The token is not stored. Make sure that the account where the token is created has access to the repository"
+  description = <<-EOT
+    The personal access token for a third-party source control system for an Amplify app.
+    The personal access token is used to create a webhook and a read-only deploy key. The token is not stored.
+    Make sure that the account where the token is created has access to the repository.
+    EOT
   default     = null
 }
 
