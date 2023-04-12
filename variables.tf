@@ -28,7 +28,11 @@ variable "access_token" {
 
 variable "oauth_token" {
   type        = string
-  description = "The OAuth token for a third-party source control system for an Amplify app. The OAuth token is used to create a webhook and a read-only deploy key. The OAuth token is not stored"
+  description = <<-EOT
+    The OAuth token for a third-party source control system for an Amplify app. 
+    The OAuth token is used to create a webhook and a read-only deploy key. 
+    The OAuth token is not stored.
+    EOT
   default     = null
 }
 
