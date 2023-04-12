@@ -29,6 +29,7 @@ variable "access_token" {
     Make sure that the account where the token is created has access to the repository.
     EOT
   default     = null
+  sensitive   = true
 }
 
 variable "oauth_token" {
