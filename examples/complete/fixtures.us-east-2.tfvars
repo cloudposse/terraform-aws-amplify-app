@@ -8,7 +8,7 @@ stage = "test"
 
 name = "amplify"
 
-github_personal_access_token_secret_path = "cpco-amplify-app-test-github-token"
+github_personal_access_token_secret_path = "/cpco-amplify-app-test-github-token"
 
 platform = "WEB"
 

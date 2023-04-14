@@ -5,7 +5,6 @@ variable "region" {
 
 variable "github_personal_access_token_secret_path" {
   description = "Path to the GitHub personal access token in AWS Parameter Store"
-  default     = "/amplify/github_personal_access_token"
   type        = string
 }
 
