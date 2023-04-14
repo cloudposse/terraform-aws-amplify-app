@@ -8,6 +8,8 @@ stage = "test"
 
 name = "amplify"
 
+github_personal_access_token_secret_path = "cpco-amplify-app-test-github-token"
+
 platform = "WEB"
 
 repository = "https://github.com/cloudposse/amplify-test2"
@@ -21,8 +23,6 @@ enable_branch_auto_build = true
 enable_branch_auto_deletion = true
 
 enable_basic_auth = false
-
-access_token = "test"
 
 auto_branch_creation_patterns = [
   "*",

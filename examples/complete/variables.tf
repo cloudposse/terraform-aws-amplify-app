@@ -3,6 +3,12 @@ variable "region" {
   description = "AWS region"
 }
 
+variable "github_personal_access_token_secret_path" {
+  description = "Path to the GitHub personal access token in AWS Parameter Store"
+  default     = "/amplify/github_personal_access_token"
+  type        = string
+}
+
 variable "description" {
   type        = string
   description = "The description for the Amplify app"
@@ -19,17 +25,6 @@ variable "platform" {
   type        = string
   description = "The platform or framework for the Amplify app"
   default     = "WEB"
-}
-
-variable "access_token" {
-  type        = string
-  description = <<-EOT
-    The personal access token for a third-party source control system for an Amplify app.
-    The personal access token is used to create a webhook and a read-only deploy key. The token is not stored.
-    Make sure that the account where the token is created has access to the repository.
-    EOT
-  default     = null
-  sensitive   = true
 }
 
 variable "oauth_token" {

@@ -1,10 +1,15 @@
+data "aws_ssm_parameter" "github_pat" {
+  name            = var.github_personal_access_token_secret_path
+  with_decryption = true
+}
+
 module "amplify_app" {
   source = "../../"
 
+  access_token                  = data.aws_ssm_parameter.github_pat.value
   description                   = var.description
   repository                    = var.repository
   platform                      = var.platform
-  access_token                  = var.access_token
   oauth_token                   = var.oauth_token
   auto_branch_creation_config   = var.auto_branch_creation_config
   auto_branch_creation_patterns = var.auto_branch_creation_patterns

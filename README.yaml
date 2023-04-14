@@ -84,15 +84,21 @@ usage: |-
   (which tests and deploys the example on AWS), see [test](test).
 
   ```hcl
+  data "aws_ssm_parameter" "github_pat" {
+    name            = var.github_personal_access_token_secret_path
+    with_decryption = true
+  }
+
   module "amplify_app" {
     source  = "cloudposse/amplify-app/aws"
     # Cloud Posse recommends pinning every module to a specific version
     # version = "x.x.x"
 
+    access_token = data.aws_ssm_parameter.github_pat.value
+
     description  = "Test Amplify App"
     repository   = "https://github.com/cloudposse/amplify-test2"
     platform     = "WEB"
-    access_token = "<change me>"
 
     iam_service_role_enabled    = false
     enable_auto_branch_creation = false
