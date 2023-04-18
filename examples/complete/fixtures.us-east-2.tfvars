@@ -8,6 +8,8 @@ stage = "test"
 
 name = "amplify"
 
+# https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html
+# https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html
 github_personal_access_token_secret_path = "/cpco-amplify-app-test-github-token"
 
 platform = "WEB"
