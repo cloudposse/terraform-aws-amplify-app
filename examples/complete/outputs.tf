@@ -1,14 +1,34 @@
-output "id" {
-  description = "ID of the created example"
-  value       = module.example.id
+output "name" {
+  description = "Amplify App name"
+  value       = module.amplify_app.name
 }
 
-output "example" {
-  description = "Output \"example\" from example module"
-  value       = module.example.example
+output "arn" {
+  description = "Amplify App ARN "
+  value       = module.amplify_app.arn
 }
 
-output "random" {
-  description = "Output \"random\" from example module"
-  value       = module.example.random
+output "default_domain" {
+  description = "Amplify App domain (non-custom)"
+  value       = module.amplify_app.default_domain
+}
+
+output "backend_environments" {
+  description = "Created backend environments"
+  value       = module.amplify_app.backend_environments
+}
+
+output "branch_names" {
+  description = "The names of the created Amplify branches"
+  value       = module.amplify_app.branch_names
+}
+
+output "domain_associations" {
+  description = "Created domain associations"
+  value       = module.amplify_app.domain_associations
+}
+
+output "webhooks" {
+  description = "Created webhooks"
+  value       = module.amplify_app.webhooks
 }
