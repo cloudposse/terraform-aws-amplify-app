@@ -8,8 +8,10 @@ stage = "test"
 
 name = "amplify"
 
-# https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html
 # https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html
+# The GitHub PAT needs to have the scope `admin:repo_hook`
+# Refer to "Setting up the Amplify GitHub App for AWS CloudFormation, CLI, and SDK deployments"
+# in https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html
 github_personal_access_token_secret_path = "/cpco-amplify-app-test-github-token"
 
 platform = "WEB"
