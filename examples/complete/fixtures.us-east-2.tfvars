@@ -106,7 +106,7 @@ domain_config = {
   sub_domain = [
     {
       branch_name = "main"
-      prefix      = "prod"
+      prefix      = ""
     },
     {
       branch_name = "dev"
