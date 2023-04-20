@@ -94,18 +94,18 @@ resource "aws_amplify_branch" "default" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_domain_association
 resource "aws_amplify_domain_association" "default" {
-  for_each = { for k, v in local.environments : k => v if lookup(v, "domain_name", null) != null && lookup(v, "domain_name", "") != "" }
+  count = local.enabled && var.domain_config != null ? 1 : 0
 
   app_id                 = one(aws_amplify_app.default[*].id)
-  domain_name            = lookup(each.value, "domain_name")
-  enable_auto_sub_domain = lookup(each.value, "enable_auto_sub_domain", null)
-  wait_for_verification  = lookup(each.value, "wait_for_verification", null)
+  domain_name            = lookup(var.domain_config, "domain_name")
+  enable_auto_sub_domain = lookup(var.domain_config, "enable_auto_sub_domain", null)
+  wait_for_verification  = lookup(var.domain_config, "wait_for_verification", null)
 
   dynamic "sub_domain" {
-    for_each = lookup(each.value, "sub_domain")
+    for_each = lookup(var.domain_config, "sub_domain")
 
     content {
-      branch_name = sub_domain.value.branch_name
+      branch_name = aws_amplify_branch.default[sub_domain.value.branch_name].branch_name
       prefix      = sub_domain.value.prefix
     }
   }
@@ -116,8 +116,8 @@ resource "aws_amplify_webhook" "default" {
   for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", false) }
 
   app_id      = one(aws_amplify_app.default[*].id)
-  branch_name = lookup(each.value, "branch_name", each.key)
-  description = format("trigger-%s", lookup(each.value, "branch_name", each.key))
+  branch_name = aws_amplify_branch.default[lookup(each.value, "branch_name", each.key)].branch_name
+  description = format("trigger-%s", aws_amplify_branch.default[lookup(each.value, "branch_name", each.key)].branch_name)
 
   # NOTE: We trigger the webhook via local-exec so as to kick off the first build on creation of Amplify App
   provisioner "local-exec" {

@@ -23,12 +23,17 @@ output "branch_names" {
   value       = values(aws_amplify_branch.default)[*].branch_name
 }
 
-output "domain_associations" {
-  description = "Created domain associations"
-  value       = aws_amplify_domain_association.default
-}
-
 output "webhooks" {
   description = "Created webhooks"
   value       = aws_amplify_webhook.default
+}
+
+output "domain_association_arn" {
+  description = "ARN of the domain association"
+  value       = one(aws_amplify_domain_association.default[*].arn)
+}
+
+output "domain_association_certificate_verification_dns_record" {
+  description = "The DNS record for certificate verification"
+  value       = one(aws_amplify_domain_association.default[*].certificate_verification_dns_record)
 }

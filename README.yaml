@@ -100,11 +100,19 @@ usage: |-
     repository   = "https://github.com/cloudposse/amplify-test2"
     platform     = "WEB"
 
-    iam_service_role_enabled    = false
     enable_auto_branch_creation = false
     enable_branch_auto_build    = true
     enable_branch_auto_deletion = true
     enable_basic_auth           = false
+
+    iam_service_role_enabled    = true
+
+    iam_service_role_actions = [
+      "logs:CreateLogStream",
+      "logs:CreateLogGroup",
+      "logs:DescribeLogGroups",
+      "logs:PutLogEvents"
+    ]
 
     auto_branch_creation_patterns = [
       "*",
@@ -112,7 +120,7 @@ usage: |-
     ]
 
     auto_branch_creation_config = {
-      # Enable auto build for the created branch
+      # Enable auto build for the created branches
       enable_auto_build = true
     }
 
@@ -147,10 +155,11 @@ usage: |-
     environment_variables = {
       ENV = "test"
     }
-      
+
     environments = {
-      prod = {
+      main = {
         branch_name                 = "main"
+        enable_auto_build           = true
         backend_enabled             = false
         enable_performance_mode     = true
         enable_pull_request_preview = false
@@ -159,11 +168,29 @@ usage: |-
       }
       dev = {
         branch_name                 = "dev"
+        enable_auto_build           = true
         backend_enabled             = false
+        enable_performance_mode     = false
         enable_pull_request_preview = true
         framework                   = "React"
         stage                       = "DEVELOPMENT"
       }
+    }
+
+    domain_config = {
+      domain_name            = "test.net"
+      enable_auto_sub_domain = true
+      wait_for_verification  = false
+      sub_domain = [
+        {
+          branch_name = "main"
+          prefix      = ""
+        },
+        {
+          branch_name = "dev"
+          prefix      = "dev"
+        }
+      ]
     }
 
     context = module.label.context
