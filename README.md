@@ -193,7 +193,7 @@ module "amplify_app" {
   }
 
   domain_config = {
-    domain_name            = "example.com"
+    domain_name            = "test.net"
     enable_auto_sub_domain = true
     wait_for_verification  = false
     sub_domain = [
