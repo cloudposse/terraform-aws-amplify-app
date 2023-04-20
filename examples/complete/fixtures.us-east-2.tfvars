@@ -18,7 +18,15 @@ platform = "WEB"
 
 repository = "https://github.com/cloudposse/amplify-test2"
 
-iam_service_role_enabled = false
+iam_service_role_enabled = true
+
+# https://docs.aws.amazon.com/amplify/latest/userguide/ssr-CloudWatch-logs.html
+iam_service_role_actions = [
+  "logs:CreateLogStream",
+  "logs:CreateLogGroup",
+  "logs:DescribeLogGroups",
+  "logs:PutLogEvents"
+]
 
 enable_auto_branch_creation = false
 
@@ -34,7 +42,7 @@ auto_branch_creation_patterns = [
 ]
 
 auto_branch_creation_config = {
-  # Enable auto build for the created branch
+  # Enable auto build for the created branches
   enable_auto_build = true
 }
 
@@ -73,6 +81,7 @@ environment_variables = {
 environments = {
   prod = {
     branch_name                 = "main"
+    enable_auto_build           = true
     backend_enabled             = false
     enable_performance_mode     = true
     enable_pull_request_preview = false
@@ -81,7 +90,9 @@ environments = {
   }
   dev = {
     branch_name                 = "dev"
+    enable_auto_build           = true
     backend_enabled             = false
+    enable_performance_mode     = false
     enable_pull_request_preview = true
     framework                   = "React"
     stage                       = "DEVELOPMENT"
