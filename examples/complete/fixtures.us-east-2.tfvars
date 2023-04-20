@@ -79,7 +79,7 @@ environment_variables = {
 }
 
 environments = {
-  prod = {
+  main = {
     branch_name                 = "main"
     enable_auto_build           = true
     backend_enabled             = false

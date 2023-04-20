@@ -105,7 +105,7 @@ resource "aws_amplify_domain_association" "default" {
     for_each = lookup(var.domain_config, "sub_domain")
 
     content {
-      branch_name = sub_domain.value.branch_name
+      branch_name = aws_amplify_branch.default[sub_domain.value.branch_name].branch_name
       prefix      = sub_domain.value.prefix
     }
   }

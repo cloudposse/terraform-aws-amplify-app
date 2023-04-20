@@ -170,9 +170,9 @@ module "amplify_app" {
   environment_variables = {
     ENV = "test"
   }
-    
+
   environments = {
-    prod = {
+    main = {
       branch_name                 = "main"
       enable_auto_build           = true
       backend_enabled             = false
