@@ -116,8 +116,8 @@ resource "aws_amplify_webhook" "default" {
   for_each = { for k, v in local.environments : k => v if lookup(v, "webhook_enabled", false) }
 
   app_id      = one(aws_amplify_app.default[*].id)
-  branch_name = lookup(each.value, "branch_name", each.key)
-  description = format("trigger-%s", lookup(each.value, "branch_name", each.key))
+  branch_name = aws_amplify_branch.default[lookup(each.value, "branch_name", each.key)].branch_name
+  description = format("trigger-%s", aws_amplify_branch.default[lookup(each.value, "branch_name", each.key)].branch_name)
 
   # NOTE: We trigger the webhook via local-exec so as to kick off the first build on creation of Amplify App
   provisioner "local-exec" {
