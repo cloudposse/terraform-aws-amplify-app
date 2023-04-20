@@ -116,12 +116,14 @@ variable "iam_service_role_arn" {
     If not provided, a new role will be created if the variable `iam_service_role_enabled` is set to `true`.
     EOT
   default     = []
+  nullable    = false
 }
 
 variable "iam_service_role_enabled" {
   type        = bool
   description = "Flag to create the IAM service role for the Amplify app"
   default     = false
+  nullable    = false
 }
 
 variable "iam_service_role_actions" {
@@ -131,6 +133,7 @@ variable "iam_service_role_actions" {
     If not provided, the default set of actions will be used for the role if the variable `iam_service_role_enabled` is set to `true`.
     EOT
   default     = []
+  nullable    = false
 }
 
 variable "custom_rules" {
@@ -142,6 +145,7 @@ variable "custom_rules" {
   }))
   description = "The custom rules to apply to the Amplify App"
   default     = []
+  nullable    = false
 }
 
 variable "environments" {
@@ -167,6 +171,7 @@ variable "environments" {
   }))
   description = "The configuration of the environments for the Amplify App"
   default     = {}
+  nullable    = false
 }
 
 variable "domain_config" {

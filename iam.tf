@@ -1,5 +1,5 @@
 locals {
-  create_iam_role = local.enabled && var.iam_service_role_enabled && (var.iam_service_role_arn == null || length(var.iam_service_role_arn) == 0)
+  create_iam_role = local.enabled && var.iam_service_role_enabled && length(var.iam_service_role_arn) == 0
 
   iam_service_role_arn = try(local.create_iam_role ? module.role.arn : var.iam_service_role_arn[0], null)
 
@@ -80,7 +80,7 @@ locals {
     "logs:PutLogEvents"
   ]
 
-  actions = var.iam_service_role_actions != null && length(var.iam_service_role_actions) > 0 ? var.iam_service_role_actions : local.default_actions
+  actions = length(var.iam_service_role_actions) > 0 ? var.iam_service_role_actions : local.default_actions
 }
 
 data "aws_iam_policy_document" "default" {

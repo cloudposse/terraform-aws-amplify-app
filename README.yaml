@@ -178,7 +178,7 @@ usage: |-
     }
 
     domain_config = {
-      domain_name            = "mydomain.net"
+      domain_name            = "example.com"
       enable_auto_sub_domain = true
       wait_for_verification  = false
       sub_domain = [
