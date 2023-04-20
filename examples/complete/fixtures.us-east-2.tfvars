@@ -105,7 +105,7 @@ domain_config = {
   wait_for_verification  = false
   sub_domain = [
     {
-      branch_name = "prod"
+      branch_name = "main"
       prefix      = "prod"
     },
     {

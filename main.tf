@@ -94,7 +94,7 @@ resource "aws_amplify_branch" "default" {
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_domain_association
 resource "aws_amplify_domain_association" "default" {
-  count = var.domain_config != null ? 1 : 0
+  count = local.enabled && var.domain_config != null ? 1 : 0
 
   app_id                 = one(aws_amplify_app.default[*].id)
   domain_name            = lookup(var.domain_config, "domain_name")
