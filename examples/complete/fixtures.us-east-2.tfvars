@@ -98,3 +98,19 @@ environments = {
     stage                       = "DEVELOPMENT"
   }
 }
+
+domain_config = {
+  domain_name            = "mydomain.net"
+  enable_auto_sub_domain = true
+  wait_for_verification  = false
+  sub_domain = [
+    {
+      branch_name = "prod"
+      prefix      = "prod"
+    },
+    {
+      branch_name = "dev"
+      prefix      = "dev"
+    }
+  ]
+}

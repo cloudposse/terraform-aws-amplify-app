@@ -163,15 +163,22 @@ variable "environments" {
     pull_request_environment_name = optional(string)
     stage                         = optional(string)
     ttl                           = optional(number)
-    domain_name                   = optional(string)
-    enable_auto_sub_domain        = optional(bool)
-    wait_for_verification         = optional(bool)
-    sub_domain = optional(list(object({
-      branch_name = string
-      prefix      = string
-    })))
-    webhook_enabled = optional(bool, false)
+    webhook_enabled               = optional(bool, false)
   }))
   description = "The configuration of the environments for the Amplify App"
   default     = {}
+}
+
+variable "domain_config" {
+  type = object({
+    domain_name            = string
+    enable_auto_sub_domain = optional(bool, false)
+    wait_for_verification  = optional(bool, false)
+    sub_domain = list(object({
+      branch_name = string
+      prefix      = string
+    }))
+  })
+  description = "Amplify custom domain configuration"
+  default     = null
 }
