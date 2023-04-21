@@ -4,7 +4,7 @@ output "name" {
 }
 
 output "arn" {
-  description = "Amplify App ARN "
+  description = "Amplify App ARN"
   value       = module.amplify_app.arn
 }
 
@@ -36,4 +36,9 @@ output "domain_association_arn" {
 output "domain_association_certificate_verification_dns_record" {
   description = "The DNS record for certificate verification"
   value       = module.amplify_app.domain_association_certificate_verification_dns_record
+}
+
+output "sub_domains" {
+  description = "DNS records and the verified status for the subdomains"
+  value       = module.amplify_app.sub_domains
 }
