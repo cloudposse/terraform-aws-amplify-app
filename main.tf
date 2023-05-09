@@ -1,6 +1,5 @@
 locals {
   enabled = module.this.enabled
-
   environments = { for k, v in var.environments : k => v if local.enabled }
 }
 
