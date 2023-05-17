@@ -96,7 +96,7 @@ data "aws_iam_policy_document" "default" {
 
 module "role" {
   source  = "cloudposse/iam-role/aws"
-  version = "0.17.0"
+  version = "0.18.0"
 
   enabled = local.create_iam_role
 
