@@ -8,6 +8,11 @@ output "arn" {
   value       = one(aws_amplify_app.default[*].arn)
 }
 
+output "id" {
+  description = "Amplify App Id"
+  value       = one(aws_amplify_app.default[*].id)
+}
+
 output "default_domain" {
   description = "Amplify App domain (non-custom)"
   value       = one(aws_amplify_app.default[*].default_domain)
