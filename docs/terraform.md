@@ -83,6 +83,7 @@
 | <a name="output_default_domain"></a> [default\_domain](#output\_default\_domain) | Amplify App domain (non-custom) |
 | <a name="output_domain_association_arn"></a> [domain\_association\_arn](#output\_domain\_association\_arn) | ARN of the domain association |
 | <a name="output_domain_association_certificate_verification_dns_record"></a> [domain\_association\_certificate\_verification\_dns\_record](#output\_domain\_association\_certificate\_verification\_dns\_record) | The DNS record for certificate verification |
+| <a name="output_id"></a> [id](#output\_id) | Amplify App Id |
 | <a name="output_name"></a> [name](#output\_name) | Amplify App name |
 | <a name="output_sub_domains"></a> [sub\_domains](#output\_sub\_domains) | DNS records and the verified status for the subdomains |
 | <a name="output_webhooks"></a> [webhooks](#output\_webhooks) | Created webhooks |
