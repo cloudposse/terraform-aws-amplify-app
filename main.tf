@@ -2,7 +2,8 @@ locals {
   enabled = module.this.enabled
 
   environments = { for k, v in var.environments : k => v if local.enabled }
-  domains      = { for k, v in var.domains : k => v if local.enabled }
+
+  domains = merge(local.domain_config, { for k, v in var.domains : k => v if local.enabled })
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_app
