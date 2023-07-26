@@ -114,4 +114,18 @@ domains = {
       }
     ]
   }
+  "test.io" = {
+    enable_auto_sub_domain = true
+    wait_for_verification  = false
+    sub_domain = [
+      {
+        branch_name = "main"
+        prefix      = ""
+      },
+      {
+        branch_name = "dev"
+        prefix      = "dev"
+      }
+    ]
+  }
 }
