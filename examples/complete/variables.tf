@@ -175,16 +175,15 @@ variable "environments" {
   nullable    = false
 }
 
-variable "domain_config" {
-  type = object({
-    domain_name            = string
+variable "domains" {
+  type = map(object({
     enable_auto_sub_domain = optional(bool, false)
     wait_for_verification  = optional(bool, false)
     sub_domain = list(object({
       branch_name = string
       prefix      = string
     }))
-  })
-  description = "Amplify custom domain configuration"
+  }))
+  description = "Amplify custom domain configurations"
   default     = null
 }

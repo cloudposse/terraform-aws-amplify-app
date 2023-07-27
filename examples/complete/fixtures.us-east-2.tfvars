@@ -99,18 +99,33 @@ environments = {
   }
 }
 
-domain_config = {
-  domain_name            = "test.net"
-  enable_auto_sub_domain = true
-  wait_for_verification  = false
-  sub_domain = [
-    {
-      branch_name = "main"
-      prefix      = ""
-    },
-    {
-      branch_name = "dev"
-      prefix      = "dev"
-    }
-  ]
+domains = {
+  "test.net" = {
+    enable_auto_sub_domain = true
+    wait_for_verification  = false
+    sub_domain = [
+      {
+        branch_name = "main"
+        prefix      = ""
+      },
+      {
+        branch_name = "dev"
+        prefix      = "dev"
+      }
+    ]
+  }
+  "test.io" = {
+    enable_auto_sub_domain = true
+    wait_for_verification  = false
+    sub_domain = [
+      {
+        branch_name = "main"
+        prefix      = ""
+      },
+      {
+        branch_name = "dev"
+        prefix      = "dev"
+      }
+    ]
+  }
 }
