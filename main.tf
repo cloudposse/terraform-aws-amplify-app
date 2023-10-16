@@ -77,7 +77,7 @@ resource "aws_amplify_branch" "default" {
 
   backend_environment_arn = lookup(each.value, "backend_enabled", false) ? aws_amplify_backend_environment.default[each.key].arn : null
 
-  basic_auth_credentials        = lookup(each.value, "basic_auth_credentials", each.key)
+  basic_auth_credentials        = lookup(each.value, "basic_auth_credentials", null)
   branch_name                   = lookup(each.value, "branch_name", each.key)
   display_name                  = lookup(each.value, "display_name", each.key)
   description                   = lookup(each.value, "description", null)
