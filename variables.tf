@@ -184,5 +184,5 @@ variable "domains" {
     }))
   }))
   description = "Amplify custom domain configurations"
-  default     = null
+  default     = {}
 }
