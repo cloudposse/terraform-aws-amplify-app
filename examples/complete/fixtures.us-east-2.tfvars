@@ -16,7 +16,7 @@ github_personal_access_token_secret_path = "/cpco-amplify-app-test-github-token"
 
 platform = "WEB"
 
-repository = "https://github.com/cloudposse/amplify-test2"
+repository = "https://github.com/cloudposse-archives/amplify-test2"
 
 iam_service_role_enabled = true
 
