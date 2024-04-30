@@ -38,7 +38,3 @@ output "domain_associations" {
   value       = aws_amplify_domain_association.default
 }
 
-output "secret_arns" {
-  description = "The ARNs of the created secrets"
-  value       = module.write_ssm_secrets[*].arn_map
-}
