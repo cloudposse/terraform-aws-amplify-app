@@ -28,6 +28,8 @@ iam_service_role_actions = [
   "logs:PutLogEvents"
 ]
 
+attach_amplify_admin_managed_policy = true
+
 enable_auto_branch_creation = false
 
 enable_branch_auto_build = true
