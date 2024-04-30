@@ -126,3 +126,19 @@ resource "aws_amplify_webhook" "default" {
     command = "curl -X POST -d {} '${aws_amplify_webhook.default[each.key].url}&operation=startbuild' -H 'Content-Type:application/json'"
   }
 }
+
+module "write_ssm_secrets" {
+  source  = "cloudposse/ssm-parameter-store/aws"
+  version = "0.13.0"
+
+  for_each = local.environments
+
+  parameter_write = [for secret_key, secret_value in each.value.secrets : {
+    name        = format("/amplify/%s/%s/%s", one(aws_amplify_app.default[*].id), each.key, secret_key)
+    value       = secret_value
+    type        = "SecureString"
+    description = "AWS Amplify secret."
+  }]
+
+  context = module.this.context
+}

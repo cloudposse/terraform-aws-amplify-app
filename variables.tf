@@ -163,6 +163,7 @@ variable "environments" {
     enable_performance_mode       = optional(bool)
     enable_pull_request_preview   = optional(bool)
     environment_variables         = optional(map(string))
+    secrets                       = optional(map(string), {})
     framework                     = optional(string)
     pull_request_environment_name = optional(string)
     stage                         = optional(string)
