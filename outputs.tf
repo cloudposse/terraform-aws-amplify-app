@@ -35,5 +35,5 @@ output "webhooks" {
 
 output "domain_associations" {
   description = "Created domain associations"
-  value       = aws_amplify_domain_association.default
+  value       = awscc_amplify_domain.default
 }

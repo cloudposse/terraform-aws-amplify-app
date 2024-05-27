@@ -95,22 +95,17 @@ resource "aws_amplify_branch" "default" {
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_domain_association
-resource "aws_amplify_domain_association" "default" {
+resource "awscc_amplify_domain" "default" {
   for_each = local.domains
 
-  app_id                 = one(aws_amplify_app.default[*].id)
-  domain_name            = each.key
-  enable_auto_sub_domain = lookup(each.value, "enable_auto_sub_domain", null)
-  wait_for_verification  = lookup(each.value, "wait_for_verification", null)
+  app_id              = one(aws_amplify_app.default[*].id)
+  domain_name         = each.key
+  sub_domain_settings = each.value.sub_domain_settings
 
-  dynamic "sub_domain" {
-    for_each = lookup(each.value, "sub_domain")
-
-    content {
-      branch_name = aws_amplify_branch.default[sub_domain.value.branch_name].branch_name
-      prefix      = sub_domain.value.prefix
-    }
-  }
+  auto_sub_domain_creation_patterns = each.value.auto_sub_domain_creation_patterns
+  auto_sub_domain_iam_role          = each.value.auto_sub_domain_iam_role
+  certificate_settings              = each.value.certificate_settings
+  enable_auto_sub_domain            = each.value.enable_auto_sub_domain
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_webhook

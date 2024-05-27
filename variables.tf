@@ -176,12 +176,19 @@ variable "environments" {
 
 variable "domains" {
   type = map(object({
-    enable_auto_sub_domain = optional(bool, false)
-    wait_for_verification  = optional(bool, false)
-    sub_domain = list(object({
+    sub_domain_settings = list(object({
       branch_name = string
       prefix      = string
     }))
+    auto_sub_domain_creation_patterns = optional(list(string))
+    auto_sub_domain_iam_role          = optional(string)
+    certificate_settings = optional(object({
+      certificate_type       = optional(string)
+      custom_certificate_arn = optional(string)
+      }), {
+      certificate_type = "AMPLIFY_MANAGED"
+    })
+    enable_auto_sub_domain = optional(bool)
   }))
   description = "Amplify custom domain configurations"
   default     = {}
