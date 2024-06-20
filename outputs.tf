@@ -37,3 +37,4 @@ output "domain_associations" {
   description = "Created domain associations"
   value       = aws_amplify_domain_association.default
 }
+
