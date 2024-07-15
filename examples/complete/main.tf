@@ -4,7 +4,7 @@ data "aws_ssm_parameter" "github_pat" {
 }
 
 locals {
-  prefix = one(var.attributes)
+  prefix  = one(var.attributes)
   domains = { for k, v in var.domains: [prefix, k].join("-") => v }
 }
 
