@@ -30,7 +30,7 @@ module "amplify_app" {
   iam_service_role_arn                = var.iam_service_role_arn
   iam_service_role_actions            = var.iam_service_role_actions
   environments                        = var.environments
-  domains                             = var.domains
+  domains                             = local.domains
   attach_amplify_admin_managed_policy = var.attach_amplify_admin_managed_policy
 
   context = module.this.context
