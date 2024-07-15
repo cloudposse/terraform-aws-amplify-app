@@ -3,6 +3,11 @@ data "aws_ssm_parameter" "github_pat" {
   with_decryption = true
 }
 
+locals {
+  prefix = one(var.attributes)
+  domains = { for k, v in var.domains: [prefix, k].join("-") => v }
+}
+
 module "amplify_app" {
   source = "../../"
 
@@ -25,7 +30,7 @@ module "amplify_app" {
   iam_service_role_arn          = var.iam_service_role_arn
   iam_service_role_actions      = var.iam_service_role_actions
   environments                  = var.environments
-  domains                       = var.domains
+  domains                       = local.domains
 
   context = module.this.context
 }
