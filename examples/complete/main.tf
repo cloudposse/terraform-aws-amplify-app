@@ -5,7 +5,7 @@ data "aws_ssm_parameter" "github_pat" {
 
 locals {
   prefix  = one(var.attributes)
-  domains = { for k, v in var.domains : join("-", [prefix, k]) => v }
+  domains = { for k, v in var.domains : join("-", [local.prefix, k]) => v }
 }
 
 module "amplify_app" {
