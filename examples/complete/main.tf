@@ -3,6 +3,11 @@ data "aws_ssm_parameter" "github_pat" {
   with_decryption = true
 }
 
+locals {
+  prefix  = one(var.attributes)
+  domains = { for k, v in var.domains : join("-", [local.prefix, k]) => v }
+}
+
 module "amplify_app" {
   source = "../../"
 
