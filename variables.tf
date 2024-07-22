@@ -151,6 +151,7 @@ variable "custom_rules" {
 variable "environments" {
   type = map(object({
     branch_name                   = optional(string)
+    basic_auth_credentials        = optional(string)
     backend_enabled               = optional(bool, false)
     environment_name              = optional(string)
     deployment_artifacts          = optional(string)
