@@ -112,5 +112,7 @@ module "role" {
     one(data.aws_iam_policy_document.default[*].json)
   ]
 
+  managed_policy_arns = var.attach_amplify_admin_managed_policy ? ["arn:aws:iam::aws:policy/AdministratorAccess-Amplify"] : []
+
   context = module.this.context
 }

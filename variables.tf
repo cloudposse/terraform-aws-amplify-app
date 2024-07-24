@@ -187,3 +187,10 @@ variable "domains" {
   description = "Amplify custom domain configurations"
   default     = {}
 }
+
+variable "attach_amplify_admin_managed_policy" {
+  type        = bool
+  description = "Flag to attach the AWS managed policy `AdministratorAccess-Amplify` to the IAM service role for the Amplify app"
+  default     = false
+  nullable    = false
+}
