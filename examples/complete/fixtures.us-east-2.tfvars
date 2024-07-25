@@ -87,6 +87,10 @@ environments = {
     enable_pull_request_preview = false
     framework                   = "React"
     stage                       = "PRODUCTION"
+    secrets = {
+      TEST  = "test_secret"
+      TEST2 = "test_secret2"
+    }
   }
   dev = {
     branch_name                 = "dev"
