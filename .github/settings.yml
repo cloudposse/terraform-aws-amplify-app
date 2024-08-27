@@ -5,3 +5,4 @@ repository:
   description: Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations, and webhooks
   homepage: https://cloudposse.com/accelerate
   topics: amplify, branch, domain, webhook
+
