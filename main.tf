@@ -83,7 +83,7 @@ resource "aws_amplify_branch" "default" {
   description                   = lookup(each.value, "description", null)
   enable_auto_build             = lookup(each.value, "enable_auto_build", null)
   enable_basic_auth             = lookup(each.value, "enable_basic_auth", null)
-  enable_notification           = lookup(each.value, "enable_notification ", null)
+  enable_notification           = lookup(each.value, "enable_notification", null)
   enable_performance_mode       = lookup(each.value, "enable_performance_mode", null)
   enable_pull_request_preview   = lookup(each.value, "enable_pull_request_preview", null)
   environment_variables         = lookup(each.value, "environment_variables", {})
