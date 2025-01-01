@@ -427,7 +427,7 @@ All other trademarks referenced herein are the property of their respective owne
 
 ## Copyrights
 
-Copyright © 2023-2024 [Cloud Posse, LLC](https://cloudposse.com)
+Copyright © 2023-2025 [Cloud Posse, LLC](https://cloudposse.com)
 
 
 
