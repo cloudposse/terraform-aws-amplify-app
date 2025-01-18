@@ -74,6 +74,15 @@ custom_rules = [
   }
 ]
 
+# Custom header, HTST to always block HTTP and always redirect to HTTPS
+custom_headers = <<-EOT
+  customHeaders:
+    - pattern: '**'
+      headers:
+        - key: 'Strict-Transport-Security'
+          value: 'max-age=31536000; includeSubDomains'
+EOT
+
 environment_variables = {
   ENV = "test"
 }
