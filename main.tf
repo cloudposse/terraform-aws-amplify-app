@@ -25,6 +25,7 @@ resource "aws_amplify_app" "default" {
   enable_basic_auth             = var.enable_basic_auth
   enable_branch_auto_build      = var.enable_branch_auto_build
   environment_variables         = var.environment_variables
+  custom_headers                = var.custom_headers
 
   iam_service_role_arn = local.iam_service_role_arn
 

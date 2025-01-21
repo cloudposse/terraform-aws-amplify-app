@@ -110,6 +110,12 @@ variable "environment_variables" {
   default     = {}
 }
 
+variable "custom_headers" {
+  type        = string
+  description = "The custom headers for the Amplify app, allows specifying headers for every HTTP response. Must adhere to AWS's format: https://docs.aws.amazon.com/amplify/latest/userguide/custom-headers.html"
+  default     = ""
+}
+
 variable "iam_service_role_arn" {
   type        = list(string)
   description = <<-EOT

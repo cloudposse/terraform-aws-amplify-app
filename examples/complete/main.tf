@@ -26,6 +26,7 @@ module "amplify_app" {
   enable_branch_auto_deletion   = var.enable_branch_auto_deletion
   environment_variables         = var.environment_variables
   custom_rules                  = var.custom_rules
+  custom_headers                = var.custom_headers
   iam_service_role_enabled      = var.iam_service_role_enabled
   iam_service_role_arn          = var.iam_service_role_arn
   iam_service_role_actions      = var.iam_service_role_actions
