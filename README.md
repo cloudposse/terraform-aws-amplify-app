@@ -27,7 +27,7 @@
 
 -->
 
-Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations, and webhooks.
+Terraform module to provision AWS Amplify apps, backend environments, branches, domain associations, and webhooks. 
 
 
 > [!TIP]
@@ -120,14 +120,6 @@ module "amplify_app" {
       target = "/index.html"
     }
   ]
-
-  custom_headers = <<-EOT
-    customHeaders:
-      - pattern: '**'
-        headers:
-          - key: 'Strict-Transport-Security'
-            value: 'max-age=31536000; includeSubDomains'
-  EOT
 
   environment_variables = {
     ENV = "test"
