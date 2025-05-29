@@ -3,7 +3,7 @@
 <!-- markdownlint-disable -->
 <a href="https://cpco.io/homepage"><img src="https://github.com/cloudposse/terraform-aws-amplify-app/blob/main/.github/banner.png?raw=true" alt="Project Banner"/></a><br/>
     <p align="right">
-<a href="https://github.com/cloudposse/terraform-aws-amplify-app/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-amplify-app.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-amplify-app/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-amplify-app.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://slack.cloudposse.com"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
+<a href="https://github.com/cloudposse/terraform-aws-amplify-app/releases/latest"><img src="https://img.shields.io/github/release/cloudposse/terraform-aws-amplify-app.svg?style=for-the-badge" alt="Latest Release"/></a><a href="https://github.com/cloudposse/terraform-aws-amplify-app/commits"><img src="https://img.shields.io/github/last-commit/cloudposse/terraform-aws-amplify-app.svg?style=for-the-badge" alt="Last Updated"/></a><a href="https://cloudposse.com/slack"><img src="https://slack.cloudposse.com/for-the-badge.svg" alt="Slack Community"/></a></p>
 <!-- markdownlint-restore -->
 
 <!--
@@ -186,18 +186,6 @@ Here is an example of using this module:
 
 
 <!-- markdownlint-disable -->
-## Makefile Targets
-```text
-Available targets:
-
-  help                                Help screen
-  help/all                            Display help for all targets
-  help/short                          This help short screen
-  lint                                Lint terraform code
-
-```
-<!-- markdownlint-restore -->
-<!-- markdownlint-disable -->
 ## Requirements
 
 | Name | Version |
@@ -287,6 +275,11 @@ Available targets:
 | <a name="output_name"></a> [name](#output\_name) | Amplify App name |
 | <a name="output_webhooks"></a> [webhooks](#output\_webhooks) | Created webhooks |
 <!-- markdownlint-restore -->
+
+
+
+
+
 
 
 ## Related Projects
