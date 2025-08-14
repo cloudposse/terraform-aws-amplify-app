@@ -28,6 +28,7 @@ resource "aws_amplify_app" "default" {
   custom_headers                = var.custom_headers
 
   iam_service_role_arn = local.iam_service_role_arn
+  compute_role_arn     = var.iam_compute_role_arn
 
   dynamic "custom_rule" {
     for_each = var.custom_rules
