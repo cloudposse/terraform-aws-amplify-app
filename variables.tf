@@ -193,3 +193,12 @@ variable "domains" {
   description = "Amplify custom domain configurations"
   default     = {}
 }
+
+variable "iam_compute_role_arn" {
+  type        = string
+  description = <<-EOT
+    The AWS Identity and Access Management (IAM) compute role for the Amplify app.
+    EOT
+  default     = null
+  nullable    = true
+}
