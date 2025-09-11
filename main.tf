@@ -114,6 +114,12 @@ resource "aws_amplify_domain_association" "default" {
       prefix      = sub_domain.value.prefix
     }
   }
+
+  lifecycle {
+    ignore_changes = [
+      sub_domain
+    ]
+  }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/amplify_webhook
